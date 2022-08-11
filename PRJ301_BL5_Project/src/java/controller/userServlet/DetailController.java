@@ -5,6 +5,7 @@
  */
 package controller.userServlet;
 
+
 import dal.UserDBContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,8 +23,8 @@ import model.Product;
  *
  * @author T495s
  */
-@WebServlet(name = "CategoryControl", urlPatterns = {"/category"})
-public class CategoryControl extends HttpServlet {
+@WebServlet(name = "DetailController", urlPatterns = {"/detail"})
+public class DetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,18 +38,16 @@ public class CategoryControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String cateID = request.getParameter("cid");
-        //da lay dc category id ve roi
+        String id = request.getParameter("pid");
         UserDBContext udao = new UserDBContext();
-        List<Product> list = udao.getProductByCID(cateID);
+        Product p = udao.getProductByID(id);
         List<Category> listC = udao.getAllCategory();
         Product last = udao.getLast();
-                        
-        request.setAttribute("listP", list);
+
+        request.setAttribute("detail", p);
         request.setAttribute("listCC", listC);
         request.setAttribute("p", last);
-        request.setAttribute("tag", cateID);
-        request.getRequestDispatcher("view/Home.jsp").forward(request, response);
+        request.getRequestDispatcher("view/Detail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
