@@ -24,7 +24,7 @@ public class EmployeeDBContext extends DBContext {
     public ArrayList<Employee> getEmployees(Date begin, Date end) {
         ArrayList<Employee> employees = new ArrayList<>();
         try {
-            String sql = "SELECT e.eid,e.ename,p.pname,ISNULL(t.tid,-1) tid,t.checkin,t.checkout\n"
+            String sql = "SELECT e.eid,e.ename,p.pname,ISNULL(t.tid,-1) tid,t.checkin,t.checkout,p.salaryPerHour,t.aid\n"
                     + "                                        FROM Employee e\n"
                     + "                                        	LEFT JOIN (SELECT * FROM Timesheet WHERE \n"
                     + "                                        	checkin >= ? \n"
@@ -37,7 +37,7 @@ public class EmployeeDBContext extends DBContext {
             stm.setTimestamp(1, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(begin)));
             stm.setTimestamp(2, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(end)));
             ResultSet rs = stm.executeQuery();
-            Employee curEmp = new Employee();
+            Employee curEmp = new Employee();  
             TimeSheetDBContext tsdb = new TimeSheetDBContext();
             curEmp.setId(-1);
             while (rs.next()) {
@@ -46,7 +46,8 @@ public class EmployeeDBContext extends DBContext {
                     curEmp = new Employee();
                     curEmp.setId(eid);
                     curEmp.setName(rs.getString("ename"));
-                    curEmp.setPosition(rs.getString("pname"));
+                    curEmp.setPosition(rs.getString("pname"));                    
+                    curEmp.setSalaryPerHour(rs.getFloat("salaryPerHour"));
                     curEmp.setAbsentWithP(tsdb.getAbsentWithP(eid));
                     curEmp.setAbsentWithoutP(tsdb.getAbsentWithoutP(eid));
                     employees.add(curEmp);
@@ -58,6 +59,7 @@ public class EmployeeDBContext extends DBContext {
                     t.setId(tid);
                     t.setCheckin(DateTimeHelper.getDateFrom(rs.getTimestamp("checkin")));
                     t.setCheckout(DateTimeHelper.getDateFrom(rs.getTimestamp("checkout")));
+                    t.setAid(rs.getInt("aid"));
                     curEmp.getTimesheets().add(t);
                 }
             }

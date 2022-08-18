@@ -14,17 +14,9 @@ public class Employee {
     private int id;
     private String name;
     private String position;
-    private int salaryPerHour;
+    private float salaryPerHour;   
     private int absentWithP;
     private int absentWithoutP;
-
-    public int getSalaryPerHour() {
-        return salaryPerHour;
-    }
-
-    public void setSalaryPerHour(int salaryPerHour) {
-        this.salaryPerHour = salaryPerHour;
-    }
 
     public int getAbsentWithP() {
         return absentWithP;
@@ -41,7 +33,15 @@ public class Employee {
     public void setAbsentWithoutP(int absentWithoutP) {
         this.absentWithoutP = absentWithoutP;
     }
+    
+    public float getSalaryPerHour() {
+        return salaryPerHour;
+    }
 
+    public void setSalaryPerHour(float salaryPerHour) {
+        this.salaryPerHour = salaryPerHour;
+    }    
+  
     public Employee() {
     }
 
@@ -67,6 +67,8 @@ public class Employee {
         }
         return sum;
     }
+    
+    
     
     public ArrayList<TimeSheet> getTimesheets() {
         return timesheets;

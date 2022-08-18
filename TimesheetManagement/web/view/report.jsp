@@ -25,11 +25,7 @@
                 <c:forEach items="${requestScope.dates}" var="d">
                     <td colspan="2"><fmt:formatDate pattern = "dd" 
                                     value = "${d}" /></td>
-                    </c:forEach>
-                <td rowspan="2">Working days</td>
-                <td rowspan="2">Working hours</td>
-                <td rowspan="2">Absent with P</td>
-                <td rowspan="2">Absent without P</td>
+                    </c:forEach>                
             </tr>
             <tr>               
                 <c:forEach var="d" begin="01" end="31" step="1">
@@ -57,14 +53,12 @@
                                 </c:if>
                             </c:forEach>
                         </td>
-                    </c:forEach>
-                    <td>${e.getNumberOfWorkingDays()}</td>
-                    <td>${e.getNumberOfWorkingHours()}</td>
-                    <td>${e.absentWithP}</td>
-                    <td>${e.absentWithoutP}</td>
+                    </c:forEach>                    
                 </tr>
             </c:forEach>
 
         </table>
+        <br/>
+        <a href="salary"><button type="submit">SALARY MANAGEMENT</button></a>
     </body>
 </html>

@@ -22,7 +22,7 @@ import model.Employee;
  *
  * @author Hello Ngo Tung Son handsome
  */
-public class TimeSheetReportController extends HttpServlet {
+public class SalaryController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -58,7 +58,6 @@ public class TimeSheetReportController extends HttpServlet {
         request.setAttribute("dates", dates);
         request.setAttribute("dates", dates);
         request.setAttribute("employees", employees);
-        request.getRequestDispatcher("view/report.jsp").forward(request, response);
         request.getRequestDispatcher("view/salary.jsp").forward(request, response);
     } 
 

@@ -29,7 +29,9 @@ public class TimeSheetDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, eid);
             ResultSet rs = stm.executeQuery();
-            abP = rs.getInt(1);
+            while (rs.next()) {
+                abP = rs.getInt(1);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -44,30 +46,13 @@ public class TimeSheetDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, eid);
             ResultSet rs = stm.executeQuery();
-            ab = rs.getInt(1);
+            while (rs.next()) {
+                ab = rs.getInt(1);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ab;
     }
 
-    public int getSalaryPerHour(int eid) {
-        int sph = 0;
-        try {
-            String sql = "select p.salaryPerHour from Position p join Employee e\n"
-                    + "	on p.pid=e.pid where e.eid=?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, eid);
-            ResultSet rs = stm.executeQuery();
-            sph = rs.getInt(1);           
-        } catch (SQLException ex) {
-            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return sph;
-    }
-    public static void main(String[] args) {
-        TimeSheetDBContext s = new TimeSheetDBContext();
-        int t = s.getAbsentWithP(4);
-        System.out.println(t);
-    }
 }

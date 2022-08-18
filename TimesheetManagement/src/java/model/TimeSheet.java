@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -17,6 +17,9 @@ public class TimeSheet {
     private Employee employee;
     private Date checkin;
     private Date checkout;
+    private int aid;
+    private int shift;
+    
     
     private Date cidate;
 
@@ -24,7 +27,23 @@ public class TimeSheet {
         return DateTimeHelper.removeTime(checkin);
     }
 
+    public int getAid() {
+        return aid;
+    }
 
+    public void setAid(int aid) {
+        this.aid = aid;
+    }
+
+    public int getShift() {
+        return shift;
+    }
+
+    public void setShift(int shift) {
+        this.shift = shift;
+    }
+
+    
     public int getId() {
         return id;
     }
