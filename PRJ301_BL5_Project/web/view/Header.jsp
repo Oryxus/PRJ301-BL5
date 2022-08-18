@@ -3,7 +3,7 @@
 <!--begin of menu-->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="homepage">XGamingGear</a>
+        <a class="navbar-brand" href="home">XGamingGear</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -33,7 +33,7 @@
                         <a class="nav-link" href="#">Hello and Welcome</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Login.jsp">Login</a>
+                        <a class="nav-link" href="login">Login</a>
                     </li>
                 </c:if>
             </ul>
