@@ -4,10 +4,12 @@
  */
 package dal;
 
+import helper.DateTimeHelper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.TimeSheet;
@@ -18,16 +20,21 @@ import model.TimeSheet;
  */
 public class TimeSheetDBContext extends DBContext {
 
-    public int getAbsentWithP(int eid) {
+    public int getAbsentWithP(int eid, Date begin, Date end) {
         int abP = 0;
         try {
             String sql = "select count(t.tid) from Timesheet t join Employee e \n"
                     + "						on t.eid = e.eid \n"
                     + "						join Absence a\n"
                     + "						on a.aid = t.aid\n"
-                    + "						where a.reason is not NULL and e.eid = ?";
+                    + "						where a.reason is not NULL and e.eid = ?"
+                    + "                                         and a.date >= ?\n"
+                    + "                                        	AND\n"
+                    + "                                        	a.date <= ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, eid);
+            stm.setTimestamp(2, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(begin)));
+            stm.setTimestamp(3, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(end)));
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 abP = rs.getInt(1);
@@ -45,6 +52,8 @@ public class TimeSheetDBContext extends DBContext {
                     + "	on t.eid=e.eid where t.checkin is Null and t.aid is null and e.eid=?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, eid);
+            //stm.setTimestamp(2, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(begin)));
+            //stm.setTimestamp(3, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(end)));
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 ab = rs.getInt(1);

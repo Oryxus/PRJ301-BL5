@@ -28,6 +28,9 @@
                 <td>Absent without P</td>
                 <td>Salary/Hour</td>
                 <td>Total Salary paid for Working Hours</td>
+                <td>Bonus</td>
+                <td>% gross</td>
+                <td>Total salary</td>
             </tr>
 
             <c:forEach items="${requestScope.employees}" var="e">
@@ -41,6 +44,9 @@
                     <td>${e.absentWithoutP}</td>
                     <td>${e.salaryPerHour}</td>
                     <td>${e.getNumberOfWorkingHours()*e.salaryPerHour}</td>
+                    <td>${e.bonus}</td>
+                    <td>${e.grossPercentage}</td>
+                    <td>${(e.getNumberOfWorkingHours()*e.salaryPerHour)+e.bonus+e.grossPercentage}</td>
                 </tr>
             </c:forEach>
 

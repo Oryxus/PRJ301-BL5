@@ -59,7 +59,7 @@ public class TimeSheetReportController extends HttpServlet {
         request.setAttribute("dates", dates);
         request.setAttribute("employees", employees);
         request.getRequestDispatcher("view/report.jsp").forward(request, response);
-        request.getRequestDispatcher("view/salary.jsp").forward(request, response);
+        //request.getRequestDispatcher("view/salary.jsp").forward(request, response);
     } 
 
     /** 

@@ -17,6 +17,24 @@ public class Employee {
     private float salaryPerHour;   
     private int absentWithP;
     private int absentWithoutP;
+    private float bonus;
+    private float grossPercentage;
+
+    public float getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(float bonus) {
+        this.bonus = bonus;
+    }
+
+    public float getGrossPercentage() {
+        return grossPercentage;
+    }
+
+    public void setGrossPercentage(float grossPercentage) {
+        this.grossPercentage = grossPercentage;
+    }
 
     public int getAbsentWithP() {
         return absentWithP;

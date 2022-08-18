@@ -24,20 +24,25 @@ public class EmployeeDBContext extends DBContext {
     public ArrayList<Employee> getEmployees(Date begin, Date end) {
         ArrayList<Employee> employees = new ArrayList<>();
         try {
-            String sql = "SELECT e.eid,e.ename,p.pname,ISNULL(t.tid,-1) tid,t.checkin,t.checkout,p.salaryPerHour,t.aid\n"
+            String sql = "SELECT e.eid,e.ename,p.pname,ISNULL(t.tid,-1) tid,t.checkin,t.checkout,p.salaryPerHour,t.aid,\n"
+                    + "                                         al.bonus, g.gross*p.grossPercentage as grossP\n"
                     + "                                        FROM Employee e\n"
-                    + "                                        	LEFT JOIN (SELECT * FROM Timesheet WHERE \n"
-                    + "                                        	checkin >= ? \n"
-                    + "                                        	AND\n"
-                    + "                                        	checkin < ?) t \n"
-                    + "                                        	ON e.eid = t.eid\n"
+                    + "                                        LEFT JOIN (SELECT * FROM Timesheet WHERE \n"
+                    + "                                        checkin >= ?  \n"
+                    + "                                        AND\n"
+                    + "                                        checkin <= ?) t \n"
+                    + "                                        ON e.eid = t.eid\n"
                     + "						join Position p\n"
-                    + "						on p.pid = e.pid";
+                    + "						on p.pid = e.pid\n"
+                    + "						join Allowance al\n"
+                    + "						on al.eid=e.eid\n"
+                    + "						join Gross g \n"
+                    + "						on al.gid = g.gid";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setTimestamp(1, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(begin)));
             stm.setTimestamp(2, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(end)));
             ResultSet rs = stm.executeQuery();
-            Employee curEmp = new Employee();  
+            Employee curEmp = new Employee();
             TimeSheetDBContext tsdb = new TimeSheetDBContext();
             curEmp.setId(-1);
             while (rs.next()) {
@@ -46,10 +51,12 @@ public class EmployeeDBContext extends DBContext {
                     curEmp = new Employee();
                     curEmp.setId(eid);
                     curEmp.setName(rs.getString("ename"));
-                    curEmp.setPosition(rs.getString("pname"));                    
+                    curEmp.setPosition(rs.getString("pname"));
                     curEmp.setSalaryPerHour(rs.getFloat("salaryPerHour"));
-                    curEmp.setAbsentWithP(tsdb.getAbsentWithP(eid));
+                    curEmp.setAbsentWithP(tsdb.getAbsentWithP(eid, begin, end));
                     curEmp.setAbsentWithoutP(tsdb.getAbsentWithoutP(eid));
+                    curEmp.setBonus(rs.getFloat("bonus"));
+                    curEmp.setGrossPercentage(rs.getFloat("grossP"));
                     employees.add(curEmp);
                 }
                 int tid = rs.getInt("tid");
@@ -68,6 +75,5 @@ public class EmployeeDBContext extends DBContext {
         }
         return employees;
     }
-    
-    
+
 }
