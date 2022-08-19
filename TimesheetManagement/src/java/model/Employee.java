@@ -61,8 +61,7 @@ public class Employee {
     public void setGrossPercentage(double grossPercentage) {
         this.grossPercentage = grossPercentage;
     }
-    
-        
+           
   
     public Employee() {
     }

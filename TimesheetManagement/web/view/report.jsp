@@ -15,6 +15,7 @@
         <title>Timesheet Report</title>
     </head>
     <body>
+        <fmt:setLocale value = "vi_VN"/>
         <jsp:useBean id="dt" class="helper.DateTimeHelper"/>
         <h3>BANG CHAM CONG THANG 8</h3>
         <table border="1px">
@@ -25,7 +26,16 @@
                 <c:forEach items="${requestScope.dates}" var="d">
                     <td colspan="2"><fmt:formatDate pattern = "dd" 
                                     value = "${d}" /></td>
-                    </c:forEach>                
+                    </c:forEach> 
+                <td rowspan="2">Working days</td>
+                <td rowspan="2">Working hours</td>
+                <td rowspan="2">Absent with P</td>
+                <td rowspan="2">Absent without P</td>
+                <td rowspan="2">Salary/Hour</td>
+                <td rowspan="2">Salary paid for Working Hours</td>
+                <td rowspan="2">Bonus</td>
+                <td rowspan="2">% gross</td>
+                <td rowspan="2">Total salary</td>
             </tr>
             <tr>               
                 <c:forEach var="d" begin="01" end="31" step="1">
@@ -52,13 +62,26 @@
                                     ${t.checkout}
                                 </c:if>
                             </c:forEach>
-                        </td>
-                    </c:forEach>                    
-                </tr>
+                        </td>                        
+                    </c:forEach>
+                    <td>${e.getNumberOfWorkingDays()}</td>
+                    <td>${e.getNumberOfWorkingHours()}</td>
+                    <td>${e.absentWithP}</td>
+                    <td>${e.absentWithoutP}</td>
+                    <td><fmt:formatNumber value = "${e.salaryPerHour}" 
+                                      type = "currency"/></td>
+                    <td><fmt:formatNumber value = "${e.getNumberOfWorkingHours()*e.salaryPerHour}" 
+                                      type = "currency"/></td>
+                    <td><fmt:formatNumber value = "${e.bonus}" 
+                                      type = "currency"/></td>
+                    <td><fmt:formatNumber value = "${e.grossPercentage}" 
+                                      type = "currency"/></td>
+                    <td><fmt:formatNumber value = "${(e.getNumberOfWorkingHours()*e.salaryPerHour)+e.bonus+e.grossPercentage}" 
+                                      type = "currency"/></td>
+                </tr>              
             </c:forEach>
 
         </table>
-        <br/>
-        <a href="salary"><button type="submit">SALARY MANAGEMENT</button></a>
+        
     </body>
 </html>
