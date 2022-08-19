@@ -14,27 +14,13 @@ public class Employee {
     private int id;
     private String name;
     private String position;
-    private float salaryPerHour;   
+    private double salaryPerHour;   
     private int absentWithP;
     private int absentWithoutP;
-    private float bonus;
-    private float grossPercentage;
+    private double bonus;
+    private double grossPercentage;
 
-    public float getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(float bonus) {
-        this.bonus = bonus;
-    }
-
-    public float getGrossPercentage() {
-        return grossPercentage;
-    }
-
-    public void setGrossPercentage(float grossPercentage) {
-        this.grossPercentage = grossPercentage;
-    }
+    
 
     public int getAbsentWithP() {
         return absentWithP;
@@ -51,14 +37,32 @@ public class Employee {
     public void setAbsentWithoutP(int absentWithoutP) {
         this.absentWithoutP = absentWithoutP;
     }
-    
-    public float getSalaryPerHour() {
+
+    public double getSalaryPerHour() {
         return salaryPerHour;
     }
 
-    public void setSalaryPerHour(float salaryPerHour) {
+    public void setSalaryPerHour(double salaryPerHour) {
         this.salaryPerHour = salaryPerHour;
-    }    
+    }
+
+    public double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
+
+    public double getGrossPercentage() {
+        return grossPercentage;
+    }
+
+    public void setGrossPercentage(double grossPercentage) {
+        this.grossPercentage = grossPercentage;
+    }
+    
+        
   
     public Employee() {
     }

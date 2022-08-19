@@ -52,11 +52,11 @@ public class EmployeeDBContext extends DBContext {
                     curEmp.setId(eid);
                     curEmp.setName(rs.getString("ename"));
                     curEmp.setPosition(rs.getString("pname"));
-                    curEmp.setSalaryPerHour(rs.getFloat("salaryPerHour"));
+                    curEmp.setSalaryPerHour(rs.getDouble("salaryPerHour"));
                     curEmp.setAbsentWithP(tsdb.getAbsentWithP(eid, begin, end));
                     curEmp.setAbsentWithoutP(tsdb.getAbsentWithoutP(eid));
-                    curEmp.setBonus(rs.getFloat("bonus"));
-                    curEmp.setGrossPercentage(rs.getFloat("grossP"));
+                    curEmp.setBonus(rs.getDouble("bonus"));
+                    curEmp.setGrossPercentage(rs.getDouble("grossP"));
                     employees.add(curEmp);
                 }
                 int tid = rs.getInt("tid");
