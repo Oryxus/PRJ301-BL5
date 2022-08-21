@@ -20,7 +20,7 @@ public class Employee {
     private double bonus;
     private double grossPercentage;
 
-    
+    private ArrayList<Absence> getAbsences = new ArrayList<>();
 
     public int getAbsentWithP() {
         return absentWithP;

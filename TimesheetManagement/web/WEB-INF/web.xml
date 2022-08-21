@@ -4,6 +4,14 @@
         <servlet-name>TimeSheetReportController</servlet-name>
         <servlet-class>controller.TimeSheetReportController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SalaryController</servlet-name>
+        <servlet-class>controller.SalaryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AbsenceController</servlet-name>
+        <servlet-class>controller.AbsenceController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeSheetReportController</servlet-name>
         <url-pattern>/report</url-pattern>
@@ -11,6 +19,14 @@
     <welcome-file-list>
         <welcome-file>report</welcome-file>
     </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>SalaryController</servlet-name>
+        <url-pattern>/salary</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AbsenceController</servlet-name>
+        <url-pattern>/absence</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             3000

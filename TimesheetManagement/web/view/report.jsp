@@ -12,51 +12,51 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Timesheet Report</title>
+        <title>Timesheet Report</title>  
+
     </head>
     <body>
         <fmt:setLocale value = "vi_VN"/>
         <jsp:useBean id="dt" class="helper.DateTimeHelper"/>
-        <h3>BANG CHAM CONG THANG 8</h3>
-        <table border="1px">
+        <h2 style="color: darkviolet;text-align: center;font-family: sans-serif">BẢNG CHẤM CÔNG THÁNG 8</h2>       
+        <table border="1px" style="font-family: cursive">
             <tr>
-                <td rowspan="2">ID</td>
-                <td rowspan="2">Name</td>
-                <td rowspan="2">Position</td>
+                <td rowspan="2" style="background-color: bisque;">ID</td>
+                <td rowspan="2" style="background-color: whitesmoke;">Name</td>
+                <td rowspan="2" style="background-color: cyan;">Position</td>
                 <c:forEach items="${requestScope.dates}" var="d">
-                    <td colspan="2"><fmt:formatDate pattern = "dd" 
+                    <td colspan="2" style="background-color: yellow;"><fmt:formatDate pattern = "dd" 
                                     value = "${d}" /></td>
-                    </c:forEach> 
-                <td rowspan="2">Working days</td>
-                <td rowspan="2">Working hours</td>
-                <td rowspan="2">Absent with P</td>
-                <td rowspan="2">Absent without P</td>
-                <td rowspan="2">Salary/Hour</td>
-                <td rowspan="2">Salary paid for Working Hours</td>
-                <td rowspan="2">Bonus</td>
-                <td rowspan="2">% gross</td>
-                <td rowspan="2">Total salary</td>
+                    </c:forEach>                
             </tr>
             <tr>               
                 <c:forEach var="d" begin="01" end="31" step="1">
-                    <td>In</td>
-                    <td>Out</td>
+                    <td style="background-color: aquamarine;">In</td>
+                    <td style="background-color: lightpink;">Out</td>
                 </c:forEach>  
             </tr>
             <c:forEach items="${requestScope.employees}" var="e">
                 <tr>
-                    <td>${e.id}</td>
-                    <td>${e.name}</td>
-                    <td>${e.position}</td>
+                    <td style="background-color: bisque;">${e.id}</td>
+                    <td style="background-color: whitesmoke;">${e.name}</td>
+                    <td style="background-color: cyan;">${e.position}</td>
                     <c:forEach items="${requestScope.dates}" var="d">
-                        <td>
+                        <td <c:forEach items="${e.timesheets}" var="t">
+                                <c:if test="${t.cidate eq d}">
+                                    style="background-color: aquamarine;"
+                                </c:if>
+                            </c:forEach>>
                             <c:forEach items="${e.timesheets}" var="t">
                                 <c:if test="${t.cidate eq d}">
                                     ${t.checkin}
                                 </c:if>
                             </c:forEach>
                         </td>
-                        <td>
+                        <td <c:forEach items="${e.timesheets}" var="t">
+                                <c:if test="${t.cidate eq d}">
+                                    style="background-color: lightpink;"
+                                </c:if>
+                            </c:forEach>>
                             <c:forEach items="${e.timesheets}" var="t">
                                 <c:if test="${t.cidate eq d}">
                                     ${t.checkout}
@@ -64,24 +64,15 @@
                             </c:forEach>
                         </td>                        
                     </c:forEach>
-                    <td>${e.getNumberOfWorkingDays()}</td>
-                    <td>${e.getNumberOfWorkingHours()}</td>
-                    <td>${e.absentWithP}</td>
-                    <td>${e.absentWithoutP}</td>
-                    <td><fmt:formatNumber value = "${e.salaryPerHour}" 
-                                      type = "currency"/></td>
-                    <td><fmt:formatNumber value = "${e.getNumberOfWorkingHours()*e.salaryPerHour}" 
-                                      type = "currency"/></td>
-                    <td><fmt:formatNumber value = "${e.bonus}" 
-                                      type = "currency"/></td>
-                    <td><fmt:formatNumber value = "${e.grossPercentage}" 
-                                      type = "currency"/></td>
-                    <td><fmt:formatNumber value = "${(e.getNumberOfWorkingHours()*e.salaryPerHour)+e.bonus+e.grossPercentage}" 
-                                      type = "currency"/></td>
+
                 </tr>              
             </c:forEach>
 
         </table>
-        
+        <br/>
+        <div>
+            <a href="salary"><button style="background-color: azure;font-size: 20px;font-family: monospace;margin-left: 4%">Tính lương</button></a>
+            <a href="absence"><button style="background-color: azure;font-size: 20px;font-family: monospace;margin-left: 4%">Chi tiết nghỉ</button></a>
+        </div>
     </body>
 </html>

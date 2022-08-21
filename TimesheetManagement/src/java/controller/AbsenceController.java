@@ -6,6 +6,7 @@
 package controller;
 
 import dal.EmployeeDBContext;
+import dal.TimeSheetDBContext;
 import helper.DateTimeHelper;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
+import model.Absence;
 
 import model.Employee;
 
@@ -22,7 +24,7 @@ import model.Employee;
  *
  * @author Hello Ngo Tung Son handsome
  */
-public class TimeSheetReportController extends HttpServlet {
+public class AbsenceController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -52,12 +54,10 @@ public class TimeSheetReportController extends HttpServlet {
         int dayOfMonth = DateTimeHelper.getDayOfMonth(today);
         Date begin = DateTimeHelper.addDays(today, -1*(dayOfMonth-1));
         Date end = DateTimeHelper.addDays(DateTimeHelper.addMonths(begin, 1),-1);
-        ArrayList<Date> dates = DateTimeHelper.getDates(begin, end);
-        EmployeeDBContext db = new EmployeeDBContext();
-        ArrayList<Employee> employees = db.getEmployees(begin, DateTimeHelper.addDays(end, 1));
-        request.setAttribute("dates", dates);        
-        request.setAttribute("employees", employees);
-        request.getRequestDispatcher("view/report.jsp").forward(request, response);
+        TimeSheetDBContext tsdb = new TimeSheetDBContext();
+        ArrayList<Absence> absences = tsdb.getAllAbsence(begin, end);                      
+        request.setAttribute("absences", absences);
+        request.getRequestDispatcher("view/absence.jsp").forward(request, response);
         
     } 
 

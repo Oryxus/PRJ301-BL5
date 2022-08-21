@@ -22,7 +22,7 @@ import model.Employee;
  *
  * @author Hello Ngo Tung Son handsome
  */
-public class TimeSheetReportController extends HttpServlet {
+public class SalaryController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -51,13 +51,11 @@ public class TimeSheetReportController extends HttpServlet {
         today = DateTimeHelper.removeTime(today);
         int dayOfMonth = DateTimeHelper.getDayOfMonth(today);
         Date begin = DateTimeHelper.addDays(today, -1*(dayOfMonth-1));
-        Date end = DateTimeHelper.addDays(DateTimeHelper.addMonths(begin, 1),-1);
-        ArrayList<Date> dates = DateTimeHelper.getDates(begin, end);
+        Date end = DateTimeHelper.addDays(DateTimeHelper.addMonths(begin, 1),-1);        
         EmployeeDBContext db = new EmployeeDBContext();
-        ArrayList<Employee> employees = db.getEmployees(begin, DateTimeHelper.addDays(end, 1));
-        request.setAttribute("dates", dates);        
+        ArrayList<Employee> employees = db.getEmployees(begin, DateTimeHelper.addDays(end, 1));                
         request.setAttribute("employees", employees);
-        request.getRequestDispatcher("view/report.jsp").forward(request, response);
+        request.getRequestDispatcher("view/salary.jsp").forward(request, response);
         
     } 
 
