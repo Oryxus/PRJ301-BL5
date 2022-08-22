@@ -12,6 +12,10 @@
         <servlet-name>AbsenceController</servlet-name>
         <servlet-class>controller.AbsenceController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>OvertimeController</servlet-name>
+        <servlet-class>controller.OvertimeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>TimeSheetReportController</servlet-name>
         <url-pattern>/report</url-pattern>
@@ -26,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>AbsenceController</servlet-name>
         <url-pattern>/absence</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OvertimeController</servlet-name>
+        <url-pattern>/overtime</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

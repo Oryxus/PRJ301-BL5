@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Absence;
 import model.Employee;
+import model.Overtime;
 import model.TimeSheet;
 
 /**
@@ -104,4 +105,42 @@ public class TimeSheetDBContext extends DBContext {
         return absences;
     }
 
+    public ArrayList<Overtime> getAllOvertime(Date begin, Date end) {
+        ArrayList<Overtime> overtimes = new ArrayList<>();
+        try {
+            String sql = "select e.eid,e.ename,p.pname, o.date, o.sid,p.salaryPerHour,\n"
+                    + "DATEDIFF(HOUR, s.[from],s.[to]) AS OverTimeHour,o.status\n"
+                    + "from overtime o \n"
+                    + "join employee e\n"
+                    + "on o.eid=e.eid\n"
+                    + "join Position p\n"
+                    + "on p.pid=e.pid\n"
+                    + "join Shift s\n"
+                    + "on s.sid = o.sid\n"
+                    + "where o.date >= ?  \n"
+                    + "AND o.date <= ?\n"
+                    + "order by e.eid";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setTimestamp(1, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(begin)));
+            stm.setTimestamp(2, DateTimeHelper.getTimeStamp(DateTimeHelper.removeTime(end)));
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Overtime overtime = new Overtime();
+                Employee employee = new Employee();
+                employee.setId(rs.getInt("eid"));
+                employee.setName(rs.getString("ename"));
+                employee.setPosition(rs.getString("pname"));
+                employee.setSalaryPerHour(rs.getDouble("salaryPerHour"));
+                overtime.setEmployee(employee);
+                overtime.setDate(rs.getDate("date"));
+                overtime.setSid(rs.getInt("sid"));
+                overtime.setOvertimehour(rs.getInt("OverTimeHour"));
+                overtime.setStatus(rs.getBoolean("status"));
+                overtimes.add(overtime);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return overtimes;
+    }
 }

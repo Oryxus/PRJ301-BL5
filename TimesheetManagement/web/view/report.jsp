@@ -73,6 +73,7 @@
         <div>
             <a href="salary"><button style="background-color: azure;font-size: 20px;font-family: monospace;margin-left: 4%">Tính lương</button></a>
             <a href="absence"><button style="background-color: azure;font-size: 20px;font-family: monospace;margin-left: 4%">Chi tiết nghỉ</button></a>
+            <a href="overtime"><button style="background-color: azure;font-size: 20px;font-family: monospace;margin-left: 4%">Tăng ca</button></a>
         </div>
     </body>
 </html>
