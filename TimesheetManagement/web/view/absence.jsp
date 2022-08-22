@@ -55,7 +55,7 @@
         <ol>
             <li>P : Permission granted</li>
             <li>NP : No permission</li>
-            <li>PR: Manager's privilege</li>
+            <li>WE: Weekend</li>
         </ol>
         <div>
             <a href="report"><button style="background-color: azure;font-size: 15px;font-family: monospace;margin-left: 3%">Bảng chấm công</button></a>
